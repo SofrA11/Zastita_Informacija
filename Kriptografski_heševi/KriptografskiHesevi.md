@@ -1,26 +1,26 @@
-# Funkcija za CRC računanje sa prilagodljivim parametrima
+# Функција за CRC рачунање са прилагодљивим параметрима
 
-## Funkcija: `obradi_unos`
+## Функција: `obradi_unos`
 
-### Parametri
+### Параметри
 
 - **unos**  
-  String koji sadrži niz bajtova za koje je potrebno naći CRC. Svaki bajt se sastoji od dve cifre heksadecimalnog brojnog sistema.  
-  **Primer:**  
-  `unos = 'ABCDEF125A'` se razlaže na bajtove `AB`, `CD`, `EF`, `12`, `5A`.  
-  Ukoliko je broj heksadecimalnih cifara neparan, ispred poslednje cifre u nizu dodaje se `0`, kao neutralan element.
+  Стринг који садржи низ бајтова за које је потребно наћи CRC. Сваки бајт се састоји од две цифре хексадецималног бројног система.  
+  **Пример:**  
+  `unos = 'ABCDEF125A'` се разлаже на бајтове `AB`, `CD`, `EF`, `12`, `5A`.  
+  Уколико је број хексадецималних цифара непаран, испред последње цифре у низу додаје се `0`, као неутралан елемент.
 
 - **polinom**  
-  String koji predstavlja binarnu vrednost CRC polinoma.  
-  **Primer:**  
-  Polinom \(X^8 + X^7 + X^2 + X^1 + X^0\) ima binarnu reprezentaciju: `polinom = '110000111'`.
+  Стринг који представља бинарну вредност CRC полинома.  
+  **Пример:**  
+  Полином \(X^8 + X^7 + X^2 + X^1 + X^0\) има бинарну репрезентацију: `polinom = '110000111'`.
 
 - **significantByte**  
-  Određuje da li se radi nad nizom bajtova kod kojih je:  
+  Одређује да ли се ради над низом бајтова код којих је:  
   - **MSB (Most Significant Byte First)**  
-    Bajt najveće težine je prvi u redu.  
-    **Primer:**  
-    Ako je `unos = 'ABCDEF125A'`, CRC će se računati za bajtove redom:  
+    Бајт највеће тежине је први у реду.  
+    **Пример:**  
+    Ако је `unos = 'ABCDEF125A'`, CRC ће се рачунати за бајтове редом:  
     1. `AB = 0000000001101010 = 0x6a`  
     2. `CD = 0000000110110110 = 0xb6`  
     3. `EF = 0000000100000010 = 0x2`  
@@ -28,9 +28,9 @@
     5. `5A = 0000000100000100 = 0x4`  
 
   - **LSB (Least Significant Byte First)**  
-    Bajt najmanje težine je prvi u redu.  
-    **Primer:**  
-    Ako je `unos = 'ABCDEF125A'`, CRC će se računati za bajtove redom:  
+    Бајт најмање тежине је први у реду.  
+    **Пример:**  
+    Ако је `unos = 'ABCDEF125A'`, CRC ће се рачунати за бајтове редом:  
     1. `5A = 0000000100000100 = 0x4`  
     2. `12 = 0000000001010100 = 0x54`  
     3. `EF = 0000000100000010 = 0x2`  
@@ -38,21 +38,21 @@
     5. `AB = 0000000001101010 = 0x6a`  
 
 - **endijan**  
-  Određuje kako su raspoređeni bitovi unutar svakog bajta.  
+  Одређује како су распоређени битови унутар сваког бајта.  
   - **Big Endian**  
-    Bit najveće težine je levo.  
-    **Primer:**  
-    Za heksadecimalni broj `AB`: `10101011`.  
+    Бит највеће тежине је лево.  
+    **Пример:**  
+    За хексадецимални број `AB`: `10101011`.  
 
   - **Little Endian**  
-    Bit najveće težine je desno.  
-    **Primer:**  
-    Za heksadecimalni broj `AB`: `11010101`.  
+    Бит највеће тежине је десно.  
+    **Пример:**  
+    За хексадецимални број `AB`: `11010101`.  
 
-### Objašnjenje Big Endian i Little Endian formata
+### Објашњење Big Endian и Little Endian формата
 - **Big Endian:**  
   `AB → 10101011`  
 - **Little Endian:**  
   `AB → 11010101`  
 
-Za detaljnije objašnjenje pogledajte video: [Endianness Explained](https://youtu.be/WBA6svOyWb8?si=VXCbw-e9bcdQS4wZ)
+За детаљније објашњење погледајте видео: [Endianness Explained](https://youtu.be/WBA6svOyWb8?si=VXCbw-e9bcdQS4wZ)
