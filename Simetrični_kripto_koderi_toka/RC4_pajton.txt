@@ -1,0 +1,30 @@
+from itertools import cycle
+
+def rc4(S: list, indexI: int, indexJ: int, base: int, msgLen:int) -> bytes:
+    out = []
+    i = indexI
+    j=indexJ
+    # Pseudo-random generation algorithm (PRGA)
+    for k in range(0,msgLen):
+        print(f"Iteracija: {k},  i: {i}, j: {j}")
+        i = (i + 1) % base
+        j = (j + S[i]) % base
+        print(f"i: {i}")
+        print(f"j: {j}")
+        S[i], S[j] = S[j], S[i]
+        K = S[(S[i] + S[j]) % base]
+        print(f"O = S[(S[{i}]+S[{j}])mod{base}] = S[({S[i]}+{S[j]})mod{base} = S[{(S[i] + S[j]) % base}] = {K}") 
+        out.append(K)
+    print("----------KRAJ-----------")
+    return out
+
+key = [5, 9, 12,10,7,0,15,4,14,1,3,13,2,11,8,6]#[5,7,0,4,1,3,2,6] 
+data = [1,8,8,9,5]#[1,4,3,4,0]
+output= rc4(S=key, indexI=14, indexJ=3, base=len(key), msgLen=len(data))
+coded = []
+print(f"O: {output}")
+print(f"M: {data}")
+for i in range(0,len(data)):
+    coded.append(data[i] ^ output[i])
+
+print(f"Poruka: {data} je kodirana u: {coded}")
