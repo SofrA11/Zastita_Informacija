@@ -32,7 +32,7 @@ def dekadni_u_binarni_niz(broj):
     return binarni_niz
 
 
-def knapsacKriptuj(M,J):
+def knapsackKriptuj(M,J):
     B = dekadni_u_binarni_niz(M)
     razlika = len(J) - len(B)
     if razlika > 0:
@@ -55,7 +55,7 @@ def knapsacKriptuj(M,J):
 
     return C
         
-def knapsacDekriptuj(C,m_inv, n, P):
+def knapsackDekriptuj(C,m_inv, n, P):
     
     # Korak 1: Računamo TC = C * m_inv mod n
     TC = (C * m_inv) % n
@@ -85,7 +85,7 @@ def knapsacDekriptuj(C,m_inv, n, P):
     
     
     
-def knapsac(P,m,n,param,kriptuj):
+def knapsack(P,m,n,param,kriptuj):
     print(f"P = {P}")
     print(f"m = {m}")
     print(f"n = {n}")
@@ -119,13 +119,13 @@ def knapsac(P,m,n,param,kriptuj):
         print("Kriptovanje:")
         print("----------------------------------------------------------------")    
         M = param
-        C = knapsacKriptuj(M,J)
+        C = knapsackKriptuj(M,J)
         print(f"Kriptovana poruka {M} glasi {C}")
     else:
         print("Dekriptovanje:")
         print("----------------------------------------------------------------")   
         C = param
-        M = knapsacDekriptuj(C,inverseM,n,P)
+        M = knapsackDekriptuj(C,inverseM,n,P)
         print(f"Dekriptovana poruka {C} glasi {M}")
         
 # Glavni program
@@ -134,4 +134,4 @@ m=37
 n=887
 M = 78
 C = 1798
-knapsac(P,m,n,C,False)
+knapsack(P,m,n,C,False)
