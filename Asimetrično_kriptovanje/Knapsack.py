@@ -94,9 +94,6 @@ def knapsack(P,m,n,param,kriptuj):
     else:
         print(f"C = {param}")
     print("----------------------------------------------------------------")
-    P = [3,5,11,23,43,91,181,361]
-    m=37
-    n=887
     J = []
     i = 0
     print("Računanje javnog ključa J:")
