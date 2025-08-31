@@ -23,22 +23,22 @@ def izracunaj_crc(binarno, polinom):
     bin = list(binarno)
     duzina_polinoma = len(polinom)  # Stepen polinoma
     crc = list(polinom)  # Prebacujemo poruku u integer
-
+    index = 0
     # Petlja kroz sve bitove poruke
-    for i in range(len(binarno)-duzina_polinoma):
+    for i in range(len(binarno)-duzina_polinoma+1):
         k = 0
         if bin[i]=='0':
             continue
-        print(f'X{i//2} = { ''.join(bin)}')
+        print(f'X{index} = { ''.join(bin)}')
         tempX = ''.join(bin)
         for j in range(i,i+duzina_polinoma):
             bin[j] = XOR(bin[j],crc[k])
             k+=1
-
         print(f'CRC = {''.join(crc)}')
-        print(f'X{i//2} ⊕ CRC = X{i//2+1}')
+        print(f'X{index} ⊕ CRC = X{index+1}')
         print(f'{tempX} ⊕ {''.join(crc)} = {''.join(bin)}')
         print("------------------------------------------")
+        index+=1
     # Vraćamo CRC vrednost u binarnom formatu
     return bin[len(bin)-duzina_polinoma+1:len(bin)]
 
@@ -62,7 +62,6 @@ def obradi_unos(unos,polinom, significantByte='MSB',endijan='BE'):
     bajtovi = []
     delovi = []
     bajtovi = podeli_bajtove(unos)
-    print(bajtovi)
     # Razdvajanje unosa u delove
     if significantByte == 'MSB':
         # MSB: prvo AB, zatim CD, pa 12
@@ -79,18 +78,17 @@ def obradi_unos(unos,polinom, significantByte='MSB',endijan='BE'):
         endijan= 'BE'
     # Procesiranje svakog dela
     rezultati = []
+   
     for deo in delovi:
         if len(deo) == 0:  # Ako je deo prazan, preskoči
             continue
         binarno_deo = binarno(deo)
-
         # Obrađivanje prema endijanu
         if endijan == 'LE':
             binarno_deo = obrnuti_endijan(binarno_deo)
 
         # Dodavanje nula prema stepenima polinoma
         binarno_deo = dodaj_nule(binarno_deo, len(polinom) - 1)
-
         # Računanje CRC
         print(f'Bajt: {deo}')
         print("------------------------------------------")
@@ -100,7 +98,7 @@ def obradi_unos(unos,polinom, significantByte='MSB',endijan='BE'):
     return rezultati
 
 # Testiranje sa unosom 'AB' (MSB i LSB)
-#unos = 'AB'
+#unos = 'A8'
 #polinom = '110000111'
 # unos = '57'
 # polinom = '100000111'
@@ -108,8 +106,9 @@ def obradi_unos(unos,polinom, significantByte='MSB',endijan='BE'):
 #polinom = '110000111' #II Kolokvijum 2023
 # unos = 'A5F71A2E80' #Januar 2024
 # polinom = '1011011' #Januar 2024
-unos = 'B3D52D1B80'
-polinom = '11000111'
+unos = 'A8CE10101'#April 2024
+polinom = '11010011'#April 2024
+
 significantByte = 'MSB'
 endijan = 'BE'
 rezultat = obradi_unos(unos, polinom, significantByte=significantByte, endijan=endijan)
