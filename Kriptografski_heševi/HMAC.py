@@ -44,6 +44,13 @@ def hash2(input_bytes):#April 2023
         hash_value = hash_value ^ ((i % 0xC) ^ input_bytes[i - 1])
 
     return bytes([hash_value])
+def hash3(input_bytes):#Zadaci za vezbu 1.
+    hash_value = 0xA5
+    for i in range(0, len(input_bytes)):
+        hash_value = hash_value ^ input_bytes[i]
+        print([hash_value])
+    return bytes([hash_value])
+    
 key = bytes.fromhex("29AA")
 message = bytes.fromhex("AA678823AABF12")
 res = hmac(key,message , 0xA6,0x6A)
