@@ -68,7 +68,11 @@ def knapsackDekriptuj(C,m_inv, n, P):
             TC -= p
         else:
             binarni_faktori.append(0)
-
+    message=[]
+    if TC==0:
+        message = ["Mogce je dektiptovati poruku C",True]
+    else:
+        message = ["Nije moguce dekriptovati poruku C",False]
     # Korak 3: Prevođenje binarnog broja u dekadni sistem
     binarni_faktori.reverse()
     
@@ -81,7 +85,7 @@ def knapsackDekriptuj(C,m_inv, n, P):
     string_rezultat = ''.join(map(str, binarni_faktori))
     print(f"Binarni faktor = ({string_rezultat})2 = ({M})10")
 
-    return M
+    return M,message
     
     
     
@@ -122,13 +126,16 @@ def knapsack(P,m,n,param,kriptuj):
         print("Dekriptovanje:")
         print("----------------------------------------------------------------")   
         C = param
-        M = knapsackDekriptuj(C,inverseM,n,P)
-        print(f"Dekriptovana poruka {C} glasi {M}")
-        
+        M,message = knapsackDekriptuj(C,inverseM,n,P)
+        if message[1]==True:
+            print(message[0])
+            print(f"Dekriptovana poruka {C} glasi {M}")
+        else:
+            print(message[0])
 # Glavni program
-P = [3,5,11,23,43,91,181,361]
-m=37
-n=887
-M = 78
-C = 1798
+P = [2,6,9,21,46,99]
+m=39
+n=194
+M = 49
+C = 165
 knapsack(P,m,n,C,False)
