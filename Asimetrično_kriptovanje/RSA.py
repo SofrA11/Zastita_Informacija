@@ -33,21 +33,20 @@ def rsa(p,q,e,param,crypt):
     while((fi*k+1)%e!=0):
         k+=1
     d = (fi*k+1)//e
-    if(crypt):
-        M = param
-        C = mod_binary_exponentiation(M,e,N)
-        return C
-    else:
-        C = param
-        M = mod_binary_exponentiation(C,d,N)
-        return M
-
+    
+    res=[]
+    for el in param:
+        if(crypt):
+            res.append(mod_binary_exponentiation(el,e,N))
+        else:
+            res.append(mod_binary_exponentiation(el,d,N))
+    return res
 #-------#
 p = 7
-q = 23
-e = 13
-M = 60
-C = 50
+q = 43
+e = 5
+M = [97,98,99,100]
+C = [50]
 crypt = True
 #-------#
 
