@@ -6,14 +6,25 @@ def su_uzajamno_prosti(a, b):
     return a == 1
     
 def mod_binary_exponentiation(base, exponent, mod):
-    result = 1
-    base %= mod
-    while exponent > 0:
-        if exponent & 1:
-            result = (result * base) % mod
-        base = (base * base) % mod
-        exponent >>= 1
-    return result
+      # inicijalizacija: prvi bit je uvek 1
+    print("---------------")
+    print(f"{base}^{exponent} mod {mod}")
+    bits = bin(exponent)[2:]   # '1100101'
+    tmp = base % mod
+    print(f"{bits[0]}: {base} mod {mod} = {tmp}")
+    
+    # prolazak kroz ostale bitove
+    for b in bits[1:]:
+        tmpOld = tmp
+        tmp = (tmp * tmp) % mod   # kvadriranje
+        if b == '1':
+            tmp = (tmp * base) % mod
+            print(f"{b}: ({tmpOld}^2 * {base}) mod {mod} = {tmp}")
+        else:
+            print(f"{b}: ({tmpOld}^2) mod {mod} = {tmp}")
+    return tmp
+
+
 
 
 def rsa(p,q,e,param,crypt):
@@ -46,7 +57,7 @@ p = 7
 q = 43
 e = 5
 M = [97,98,99,100]
-C = [50]
+C = [784]
 crypt = True
 #-------#
 
